@@ -4,21 +4,20 @@
  */
 package org.ndb.jpyramidgame.pyramidsolver;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.ndb.utility.CollectionsStuff;
+import com.google.common.primitives.Ints;
 
 public class PyramidSolver {
-	LinkedList<IPyramid> ar = new LinkedList<IPyramid>();
-	Collection<Integer> allReadySeenList = new HashSet<Integer>();
+	LinkedList<IPyramid> pyramids = new LinkedList<>();
+	Collection<Integer> alreadySeen = new HashSet<>();
 	public PyramidSolver(IPyramid start)
 	{
-		ar.add(start);
+		pyramids.add(start);
 	}
 
 	protected IPyramid solveInternal()
@@ -26,10 +25,9 @@ public class PyramidSolver {
 		long pyramidsExamined = 0;
 		long branchesPruned = 0; 
 		IPyramid temp = null;
-		Collection<Integer> hashes = new ArrayList<Integer>(4);
-		while(ar.size() > 0)
+		while(pyramids.size() > 0)
 		{
-			IPyramid z = ar.removeFirst();
+			IPyramid z = pyramids.removeFirst();
 			++pyramidsExamined;
             if (z.isSolved())
             {
@@ -40,23 +38,25 @@ public class PyramidSolver {
             Collection<IPyramid> children = z.getChildren();
 			
 			// don't insert into the working list if it has all ready been seen.
-			for(IPyramid pyramid : children){
-				hashes.clear();
-				int hashCode = pyramid.hashCode();
-				hashes.add(hashCode);
-				hashes.add(pyramid.getYReflection().hashCode());
-				hashes.add(pyramid.getYXReflection().hashCode());
-				hashes.add(pyramid.getXYReflection().hashCode());
-				
-				if(!CollectionsStuff.containsAny(allReadySeenList, hashes)){
+			branchesPruned += children.stream().mapToInt(pyramid->{
+
+                Collection<Integer> hashes = Ints.asList(
+                        pyramid.hashCode(),
+                        pyramid.getYReflection().hashCode(),
+                        pyramid.getYXReflection().hashCode(),
+                        pyramid.getXYReflection().hashCode()
+                );
+
+				if(!alreadySeen.stream().anyMatch(hashes::contains)){
 					// ok, we haven't seen the original or its reflections,
 					// store it
-					ar.addFirst(pyramid);
-					allReadySeenList.addAll(hashes);
+					pyramids.addFirst(pyramid);
+					alreadySeen.addAll(hashes);
 				}else{
-					++branchesPruned;
+					return 1;
 				}
-			}
+				return 0;
+			}).sum();
 			
 			temp = z;
 		}
@@ -67,7 +67,7 @@ public class PyramidSolver {
 	public List<IPyramid> solve(){
 		IPyramid p = solveInternal();
 		if (p != null && p.isSolved()) {
-			List<IPyramid> pyramids = new LinkedList<IPyramid>();
+			List<IPyramid> pyramids = new LinkedList<>();
 			while (null != p) {
 				pyramids.add(0, p);
 				p = p.getParent();
