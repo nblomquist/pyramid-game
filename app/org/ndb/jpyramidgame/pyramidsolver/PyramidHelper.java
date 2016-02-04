@@ -2,7 +2,6 @@ package org.ndb.jpyramidgame.pyramidsolver;
 
 import org.jooq.lambda.Seq;
 
-import java.io.StringWriter;
 import java.util.List;
 
 public class PyramidHelper {

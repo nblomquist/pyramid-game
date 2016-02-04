@@ -19,7 +19,7 @@ public abstract class AbstractPyramid implements IPyramid {
 	private IPyramid parent;
 	private int depth = -1;
 	
-	protected Collection<IPyramid> children; 
+	private Collection<IPyramid> children;
 
 	public boolean isSolved() {
 		int count = 0;
@@ -141,6 +141,10 @@ public abstract class AbstractPyramid implements IPyramid {
 	public void print(StringWriter sw)
     {
     	sw.write(toString());
+    }
+
+    protected void addChild(IPyramid pyramid){
+        this.children.add(pyramid);
     }
 
     @Override

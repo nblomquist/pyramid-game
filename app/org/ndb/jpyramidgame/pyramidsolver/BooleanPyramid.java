@@ -22,19 +22,14 @@ public class BooleanPyramid extends AbstractPyramid
 	{
 		if (this.isFilled(moveTo) == false && this.isFilled(jumpOver) == true)
 		{
-			boolean[] temp1 = null;
-			boolean[] temp2 = null;
-			
-			BooleanPyramid bpTemp = (BooleanPyramid)this;
-			temp1 = bpTemp.positions;
-			temp2 = new boolean[bpTemp.positions.length];
-			
+			boolean[] oldPositions = this.positions;
+			boolean[] newPositions = new boolean[this.positions.length];
 			// use array copy to handle the normal case of the Pyramid being type BooleanPyramid
-			System.arraycopy(temp1,0,temp2,0,temp1.length);
-			temp2[moveTo] = true;
-			temp2[index] = false;
-			temp2[jumpOver] = false;
-			children.add(new BooleanPyramid(temp2, this));
+			System.arraycopy(oldPositions,0,newPositions,0,oldPositions.length);
+			newPositions[moveTo] = true;
+			newPositions[index] = false;
+			newPositions[jumpOver] = false;
+			addChild(new BooleanPyramid(newPositions, this));
 		}
 	}
 		

@@ -23,14 +23,11 @@ public class Int32Pyramid extends AbstractPyramid implements IPyramid {
 	@Override
 	protected void move(int index, int moveTo, int jumpOver) {
 		if (this.isFilled(moveTo) == false && this.isFilled(jumpOver) == true){
-				Int32Pyramid ipyr = (Int32Pyramid)this;
-				
-				int temp2 =  ipyr.positions;
-				
-				temp2 |= (1 << moveTo);     //[moveTo] = true;
-				temp2 &= ~(1 << index); //[index] = false;
-				temp2 &= ~(1 << jumpOver);//[jumpOver] = false;
-				children.add(new Int32Pyramid(temp2, this));	
+				int newPositions =  this.positions;
+				newPositions |= (1 << moveTo);     //[moveTo] = true;
+				newPositions &= ~(1 << index); //[index] = false;
+				newPositions &= ~(1 << jumpOver);//[jumpOver] = false;
+				addChild(new Int32Pyramid(newPositions, this));
 		}
 
 	}
