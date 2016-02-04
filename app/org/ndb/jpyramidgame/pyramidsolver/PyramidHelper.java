@@ -1,5 +1,7 @@
 package org.ndb.jpyramidgame.pyramidsolver;
 
+import org.jooq.lambda.Seq;
+
 import java.io.StringWriter;
 import java.util.List;
 
@@ -86,12 +88,8 @@ public class PyramidHelper {
 	}
 	
 	static public String textSolution(List<IPyramid> pyramids){
-		StringWriter sw = new StringWriter();
-		for (int i = 0; i < pyramids.size(); ++i) {
-			IPyramid ppp = (IPyramid) pyramids.get(i);
-			ppp.print(sw);
-			sw.write("\n");
-		}
-		return sw.toString();
+		return Seq.seq(pyramids)
+                .map(pyr->pyr.toString())
+                .toString("\n");
 	}
 }

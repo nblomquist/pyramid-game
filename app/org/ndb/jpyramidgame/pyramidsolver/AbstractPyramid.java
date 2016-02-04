@@ -140,11 +140,18 @@ public abstract class AbstractPyramid implements IPyramid {
 	
 	public void print(StringWriter sw)
     {
-    	sw.write("    " + tf(isFilled(0))+ "    \n");
-    	sw.write("   "+tf(isFilled(1)) + " " + tf(isFilled(2))+"   \n");
-    	sw.write("  "+ tf(isFilled(3))+" "+ tf(isFilled(4))+ " "+ tf(isFilled(5))+"  \n");
-    	sw.write(" "+ tf(isFilled(6))+" "+ tf(isFilled(7))+" "+ tf(isFilled(8))+" "+ tf(isFilled(9))+" \n");
-    	sw.write(tf(isFilled(10))+" "+tf(isFilled(11))+" "+ tf(isFilled(12))+" "+ tf(isFilled(13))+" "+ tf(isFilled(14))+'\n');
+    	sw.write(toString());
+    }
+
+    @Override
+	public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("    " + tf(isFilled(0))+ "    \n");
+        sb.append("   "+tf(isFilled(1)) + " " + tf(isFilled(2))+"   \n");
+        sb.append("  "+ tf(isFilled(3))+" "+ tf(isFilled(4))+ " "+ tf(isFilled(5))+"  \n");
+        sb.append(" "+ tf(isFilled(6))+" "+ tf(isFilled(7))+" "+ tf(isFilled(8))+" "+ tf(isFilled(9))+" \n");
+        sb.append(tf(isFilled(10))+" "+tf(isFilled(11))+" "+ tf(isFilled(12))+" "+ tf(isFilled(13))+" "+ tf(isFilled(14))+'\n');
+        return sb.toString();
     }
 	
 	@Override
