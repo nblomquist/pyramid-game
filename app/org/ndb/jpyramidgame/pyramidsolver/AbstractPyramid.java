@@ -51,7 +51,7 @@ public abstract class AbstractPyramid implements IPyramid {
 	
 	public Collection<IPyramid> getChildren() {
 		if(children == null){
-			children = new ArrayList<IPyramid>();
+			children = new ArrayList<>();
 		}
 		
 		children.clear();
@@ -150,11 +150,11 @@ public abstract class AbstractPyramid implements IPyramid {
     @Override
 	public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("    " + tf(isFilled(0))+ "    \n");
-        sb.append("   "+tf(isFilled(1)) + " " + tf(isFilled(2))+"   \n");
-        sb.append("  "+ tf(isFilled(3))+" "+ tf(isFilled(4))+ " "+ tf(isFilled(5))+"  \n");
-        sb.append(" "+ tf(isFilled(6))+" "+ tf(isFilled(7))+" "+ tf(isFilled(8))+" "+ tf(isFilled(9))+" \n");
-        sb.append(tf(isFilled(10))+" "+tf(isFilled(11))+" "+ tf(isFilled(12))+" "+ tf(isFilled(13))+" "+ tf(isFilled(14))+'\n');
+        sb.append("    ").append(tf(isFilled(0))).append("    \n");
+        sb.append("   ").append(tf(isFilled(1))).append(" ").append(tf(isFilled(2))).append("   \n");
+        sb.append("  ").append(tf(isFilled(3))).append(" ").append(tf(isFilled(4))).append(" ").append(tf(isFilled(5))).append("  \n");
+        sb.append(" ").append(tf(isFilled(6))).append(" ").append(tf(isFilled(7))).append(" ").append(tf(isFilled(8))).append(" ").append(tf(isFilled(9))).append(" \n");
+        sb.append(tf(isFilled(10))).append(" ").append(tf(isFilled(11))).append(" ").append(tf(isFilled(12))).append(" ").append(tf(isFilled(13))).append(" ").append(tf(isFilled(14))).append('\n');
         return sb.toString();
     }
 	
